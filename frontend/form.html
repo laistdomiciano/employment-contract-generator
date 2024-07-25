@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contract Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Contract Generator</h1>
+    <form action="/generate" method="POST">
+        <label for="party_a">Party A:</label>
+        <input type="text" id="party_a" name="party_a" required><br>
+        <label for="party_b">Party B:</label>
+        <input type="text" id="party_b" name="party_b" required><br>
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required><br>
+        <button type="submit">Generate Contract</button>
+    </form>
+</body>
+</html>
