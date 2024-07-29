@@ -1,65 +1,60 @@
-# contract-generator
-WIP project Contract Generator. More to come soon
+# Employment Contract Generator API
 
-Project Overview
-The contract generator program will allow users to fill out a form with specific details, which will then populate predefined contract templates with the input data. The resulting contract will be available for download as a .doc file.
+## Overview
+This is a Flask-based API that allows users to generate employment contracts. Users can choose from three types of contracts: Full-Time Employment, Part-Time Employment, and Freelance Contract. The application uses JWT for authentication and PostgreSQL for data storage.
 
-# Steps and Main Functions
+## Features
+- User registration and authentication
+- Three types of contract templates
+- Generate contracts based on user input
+- Input validation and sanitization
+- Secure endpoints with JWT
+- Deployment configuration for Vercel/Render
+- Unit testing with pytest
+- API documentation with Swagger
 
-## 1. Requirements Gathering
-Identify the types of contracts to be generated.
-Define the fields required for each contract.
-Determine the user interface requirements.
-Establish the .doc file format requirements.
+## Installation
 
-## 2. Project Planning
-Create a timeline with milestones.
-Assign tasks to team members.
-Establish a development and testing environment.
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/yourusername/contract-generator.git
+    cd contract-generator
+    ```
 
-## 3. System Design
-Architecture Design: Design the overall architecture of the system, including the front-end, back-end, and database components.
-Database Design: Design the database schema to store user inputs and contract templates.
-Template Design: Define the format for the contract templates with placeholders for dynamic data.
+2. Create and activate a virtual environment:
+    ```bash
+    python -m venv venv
+    source venv/bin/activate
+    ```
 
-## 4. Front-End Development
-HTML Form Creation: Develop the HTML form for user input.
-CSS Styling: Style the form and other front-end components using CSS.
-JavaScript Validation: Implement client-side validation for form inputs.
+3. Install dependencies:
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-## 5. Back-End Development
-Flask App Setup: Set up a Flask application to handle requests.
-Form Handling: Write Python code to handle form submissions and process data.
-Template Processing: Implement logic to replace placeholders in contract templates with user-provided data.
-Document Generation: Use a library like python-docx to generate .doc files from the processed templates.
+4. Set up the environment variables:
+    ```bash
+    cp .env.example .env
+    ```
+   Update `.env` with your configuration.
 
-## 6. Integration
-Front-End and Back-End Integration: Ensure seamless communication between the front-end form and back-end processing.
-Testing and Debugging: Perform unit tests, integration tests, and user acceptance tests to identify and fix issues.
+5. Run the application:
+    ```bash
+    flask run
+    ```
 
-## 7. Deployment
- - Server Setup: Prepare a server for hosting the application.
-Deployment: Deploy the Flask application to the server.
-Monitoring and Maintenance: Set up monitoring for performance and errors, and plan for regular maintenance.
-Detailed Steps and Implementation
+## Endpoints
 
-- Step 1: Requirements Gathering
-Contracts: Employment contract, Service agreement, NDA, etc.
-Fields: Parties involved, dates, payment terms, etc.
-UI: User-friendly form interface with clear instructions.
-Output: Downloadable .doc file.
+- `/auth/register` - Register a new user
+- `/auth/login` - Login and receive a JWT
+- `/contract/generate` - Generate a contract based on selected type and user input (Authenticated)
 
-- Step 2: Project Planning
-Milestones: Form design, back-end development, integration, testing, and deployment.
-Task Assignment: Allocate tasks based on team member expertise.
-Development Environment: Set up a Git repository, development server, and testing tools.
+## Deployment
 
- - Step 3: System Design
-Architecture
-Front-End: HTML, CSS, JavaScript
-Back-End: Flask, python-docx
-Database: SQLite (for simplicity)
-Database Schema
-Templates Table: id, template_name, template_file
-UserInputs Table: id, user_id, template_id, input_data
+To deploy the application to Vercel or Render, follow the respective platform's deployment instructions. Ensure to set the environment variables on the deployment platform.
 
+## Testing
+
+Run unit tests using pytest:
+```bash
+pytest
