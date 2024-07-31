@@ -58,3 +58,31 @@ To deploy the application to Vercel or Render, follow the respective platform's 
 Run unit tests using pytest:
 ```bash
 pytest
+
+
+//////
+Explanation of Each File and Directory
+app/
+__init__.py: Initializes the Flask application, sets up extensions like SQLAlchemy, Migrate, and JWT, and registers the blueprint for routes.
+models.py: Defines the database models (User, Employee, ContractType).
+routes.py: Contains the route definitions for the API endpoints.
+config.py: Configuration file for the application, including database URI and secret keys.
+utils.py: Utility functions, such as input sanitization.
+migrations/
+Directory for database migration files managed by Flask-Migrate.
+tests/
+test_app.py: Contains unit tests for the application.
+static/
+swagger.json: Swagger documentation file for API documentation.
+seed.py
+Script to seed the database with initial data (users, employees, contract types).
+run.py
+Entry point to run the Flask application.
+requirements.txt
+Lists the Python dependencies required for the project.
+Procfile
+Specifies the commands that are executed by the app on the platform (for deployment purposes).
+.env
+Environment variables file containing sensitive information like database URI and secret keys.
+.gitignore
+Specifies files and directories that should be ignored by Git (e.g., venv/, .env, __pycache__/).

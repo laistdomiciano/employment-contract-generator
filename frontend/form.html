@@ -2,19 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Contract Generator</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Employment Contract Generator</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Contract Generator</h1>
-    <form action="/generate" method="POST">
-        <label for="party_a">Party A:</label>
-        <input type="text" id="party_a" name="party_a" required><br>
-        <label for="party_b">Party B:</label>
-        <input type="text" id="party_b" name="party_b" required><br>
-        <label for="date">Date:</label>
-        <input type="date" id="date" name="date" required><br>
-        <button type="submit">Generate Contract</button>
-    </form>
+    <h1>Employment Contract Generator</h1>
+    <h2>What type of employment contract would you like to generate?</h2>
+    <div class="dropdown">
+        <button class="dropdown-button">Dropdown button</button>
+        <div class="dropdown-content">
+            <a href="#">Full-Time</a>
+            <a href="#">Part-Time</a>
+            <a href="#">Freelance</a>
+        </div>
+    </div>
 </body>
 </html>
+
+
