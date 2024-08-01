@@ -20,12 +20,27 @@ def login():
         return jsonify({"msg": "Bad username or password"}), 401
 
 
+@bp.route('/logout', methods=['POST'])
+@jwt_required()
+def logout():
+    jti = get_jwt()["jti"]
+    db.session.add(TokenBlocklist(jti=jti))
+    db.session.commit()
+    return jsonify(msg="Successfully logged out"), 200
+
+
 @bp.route('/contracts', methods=['POST'])
 @jwt_required()
 def create_contract():
     data = request.json
     contract_type_id = data.get('contract_type_id')
     employee_id = data.get('employee_id')
+    company_name = data.get('company_name', 'Your Company Name')
+    salary = data.get('salary', 'Negotiable')
+    benefits = data.get('benefits', 'Standard Benefits')
+    hourly_rate = data.get('hourly_rate', 'Negotiable')
+    project_fee = data.get('project_fee', 'Negotiable')
+    payment_terms = data.get('payment_terms', 'Upon Completion')
 
     contract_type = ContractType.query.get(contract_type_id)
     employee = Employee.query.get(employee_id)
@@ -36,7 +51,13 @@ def create_contract():
     contract_content = contract_type.template.format(
         employee_name=employee.name,
         employee_position=employee.position,
-        employee_department=employee.department
+        employee_department=employee.department,
+        company_name=company_name,
+        salary=salary,
+        benefits=benefits,
+        hourly_rate=hourly_rate,
+        project_fee=project_fee,
+        payment_terms=payment_terms
     )
 
     # Generate PDF logic would go here

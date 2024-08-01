@@ -1,13 +1,9 @@
-from datetime import datetime
-
-contract_types = [
-    ContractType(name="Full-Time Employment", description="Full-time employment contract.", template="Full-time contract template content..."),
-    ContractType(name="Part-Time Employment", description="Part-time employment contract.", template="Part-time contract template content..."),
-    ContractType(name="Freelance Contract", description="Freelance contract.", template="Freelance contract template content...")
-]
 from . import db
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import datetime
+from flask_sqlalchemy import SQLAlchemy
 
+db = SQLAlchemy()
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -32,3 +28,9 @@ class ContractType(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
     template = db.Column(db.Text, nullable=False)
+
+
+class TokenBlocklist(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    jti = db.Column(db.String(36), nullable=False, index=True)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
