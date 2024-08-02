@@ -15,7 +15,7 @@ def login():
         access_token = create_access_token(identity={'username': user.username})
         return jsonify(access_token=access_token), 200
     else:
-        return jsonify({"msg": "Bad username or password"}), 401
+        return jsonify({"msg": "Wrong username or password. Try again"}), 401
 
 
 @bp.route('/logout', methods=['POST'])
@@ -30,11 +30,13 @@ def logout():
 @bp.route('/contract_types', methods=['GET'])
 @jwt_required()
 def get_contract_types():
+    contract_types = ContractType.query.all()
     pass
 
 @bp.route('/contracts', methods=['POST'])
 @jwt_required()
 def create_contract():
+    data = request.json
     pass
 
 # Here you would generate the PDF and return it.
