@@ -106,20 +106,26 @@ with app.app_context():
                 FREELANCE EMPLOYMENT CONTRACT
 
                 This Freelance Contract ("Contract") is made effective as of [Start Date], by and between [Company Name] ("Client") and [Freelancer Name] ("Freelancer").
-                
-                1. Services
+
+                Services
                 Freelancer agrees to perform the following services for Client: [Description of Services].
                 
-                2. Compensation
+                Compensation
                 Client will pay Freelancer a fee of [Fee Amount], payable upon completion of the services or as otherwise agreed upon by the parties.
                 
-                3. Independent Contractor
+                Payment Schedule
+                Payment will be made according to the following schedule: [Payment Schedule].
+                
+                Independent Contractor
                 Freelancer is an independent contractor and not an employee of Client.
                 
-                4. Confidentiality
+                Confidentiality
                 Freelancer agrees to keep all client information confidential.
                 
-                5. Termination
+                Intellectual Property
+                All intellectual property developed during the project will belong to [Ownership Terms].
+                
+                Termination
                 This Contract may be terminated by either party upon [Notice Period] notice.
                 
                 Signed,
