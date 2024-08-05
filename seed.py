@@ -39,20 +39,26 @@ with app.app_context():
                 FULL-TIME EMPLOYMENT CONTRACT
 
                 This Full-Time Employment Contract ("Contract") is made effective as of [Start Date], by and between [Company Name] ("Employer") and [Employee Name] ("Employee").
-
-                1. Position
+                
+                Position
                 Employer agrees to employ Employee as [Job Title]. Employee's duties and responsibilities will include [Job Responsibilities].
                 
-                2. Compensation
+                Compensation
                 Employer will pay Employee a salary of [Salary Amount] per year, payable in accordance with the company's standard payroll schedule.
                 
-                3. Benefits
+                Benefits
                 Employee will be entitled to participate in the company's benefits plans, including [List of Benefits].
                 
-                4. Termination
+                Work Hours
+                Employee is expected to work [Work Hours] hours per week.
+                
+                Leave Policy
+                Employee will be entitled to [Leave Days] days of paid leave per year.
+                
+                Termination
                 This Contract may be terminated by either party upon [Notice Period] notice.
                 
-                5. Confidentiality
+                Confidentiality
                 Employee agrees to keep all company information confidential.
                 
                 Signed,
@@ -68,19 +74,25 @@ with app.app_context():
 
                 This Part-Time Employment Contract ("Contract") is made effective as of [Start Date], by and between [Company Name] ("Employer") and [Employee Name] ("Employee").
                 
-                1. Position
+                Position
                 Employer agrees to employ Employee as [Job Title] on a part-time basis. Employee's duties and responsibilities will include [Job Responsibilities].
                 
-                2. Compensation
+                Compensation
                 Employer will pay Employee at a rate of [Hourly Rate] per hour, payable in accordance with the company's standard payroll schedule.
                 
-                3. Hours of Work
+                Hours of Work
                 Employee is expected to work [Number of Hours] hours per week.
                 
-                4. Termination
+                Benefits
+                Employee will be entitled to [List of Benefits] on a pro-rated basis.
+                
+                Leave Policy
+                Employee will be entitled to [Leave Days] days of paid leave per year on a pro-rated basis.
+                
+                Termination
                 This Contract may be terminated by either party upon [Notice Period] notice.
                 
-                5. Confidentiality
+                Confidentiality
                 Employee agrees to keep all company information confidential.
                 
                 Signed,
