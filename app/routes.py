@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, render_template, redirect
+from flask import Blueprint, request, render_template, redirect, url_for
 from flask_jwt_extended import jwt_required, get_jwt, create_access_token
 # from models import User, Employee, ContractType, TokenBlocklist, db
 
@@ -6,12 +6,30 @@ routes = Blueprint('routes', __name__)
 
 @routes.route('/')
 def home():
-    return "<h1>Employment Contract Generator</h1>"
+    # return <h1>Employment Contract Generator</h1>
+    return render_template('home.html')
 
 
-@routes.route('/login', methods=['PUT'])
+@routes.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template('login.html')
+    error = None
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        # Authentication logic here
+        if username != 'admin' or password != 'secret':
+            error = 'Invalid credentials'
+        else:
+            return redirect(url_for('routes.home'))
+    return render_template('login.html', error=error)
+
+
+@routes.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        # Handle signup logic here
+        pass
+    return render_template('signup.html')
 
 #     data = request.json
 #     username = data.get('username')
@@ -24,9 +42,9 @@ def login():
 #     else:
 #         return jsonify({"msg": "Wrong username or password. Try again"}), 401
 
-@routes.route('/signup') #methods=['GET', 'POST'])
-def signup():
-    return "<h1>Sign Up</h1>"
+# @routes.route('/signup') #methods=['GET', 'POST'])
+# def signup():
+#     return "<h1>Sign Up</h1>"
 #     return render_template('signup.html')
 #     if request.method == 'POST':
 #         username = request.form.get('username')
