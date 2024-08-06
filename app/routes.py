@@ -4,6 +4,7 @@ from flask_jwt_extended import jwt_required, get_jwt, create_access_token
 
 routes = Blueprint('routes', __name__)
 
+
 @routes.route('/')
 def home():
     # return <h1>Employment Contract Generator</h1>
@@ -31,16 +32,7 @@ def signup():
         pass
     return render_template('signup.html')
 
-#     data = request.json
-#     username = data.get('username')
-#     password = data.get('password')
-#     user = User.query.filter_by(username=username).first()
-#
-#     if user and user.check_password(password):
-#         access_token = create_access_token(identity={'username': user.username})
-#         return jsonify(access_token=access_token), 200
-#     else:
-#         return jsonify({"msg": "Wrong username or password. Try again"}), 401
+
 
 # @routes.route('/signup') #methods=['GET', 'POST'])
 # def signup():
