@@ -1,8 +1,26 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt, create_access_token
-from .models import User, Employee, ContractType, TokenBlocklist, db
+from models import User, Employee, ContractType, TokenBlocklist, db
 
 bp = Blueprint('api', __name__)
+
+@bp.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+
+        if User.query.filter_by(username=username).first():
+            return render_template('signup.html', error="Username already taken")
+
+        hashed_password = generate_password_hash(password)
+        new_user = User(username=username, password_hash=hashed_password)
+        db.session.add(new_user)
+        db.session.commit()
+
+        return redirect(url_for('api.login'))
+
+    return render_template('signup.html')
 
 @bp.route('/login', methods=['POST'])
 def login():
@@ -26,19 +44,24 @@ def logout():
     db.session.commit()
     return jsonify(msg="Successfully logged out"), 200
 
-
-@bp.route('/contract_types', methods=['GET'])
+@bp.route('/form')
 @jwt_required()
-def get_contract_types():
-    contract_types = ContractType.query.all()
-    pass
+def form():
+    return render_template('form.html')
 
-@bp.route('/contracts', methods=['POST'])
-@jwt_required()
-def create_contract():
-    data = request.json
-    pass
 
-# Here you would generate the PDF and return it.
+# @bp.route('/contract_types', methods=['GET'])
+# @jwt_required()
+# def get_contract_types():
+#     contract_types = ContractType.query.all()
+#     pass
+#
+# @bp.route('/contracts', methods=['POST'])
+# @jwt_required()
+# def create_contract():
+#     data = request.json
+#     pass
+#
+# # Here you would generate the PDF and return it.
 
 
