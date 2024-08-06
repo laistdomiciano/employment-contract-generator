@@ -1,53 +1,66 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, render_template, redirect
 from flask_jwt_extended import jwt_required, get_jwt, create_access_token
-from models import User, Employee, ContractType, TokenBlocklist, db
+# from models import User, Employee, ContractType, TokenBlocklist, db
 
 routes = Blueprint('routes', __name__)
 
-@routes.route('/signup', methods=['GET', 'POST'])
-def signup():
-    if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
+@routes.route('/')
+def home():
+    return "<h1>Employment Contract Generator</h1>"
 
-        if User.query.filter_by(username=username).first():
-            return render_template('signup.html', error="Username already taken")
 
-        hashed_password = generate_password_hash(password)
-        new_user = User(username=username, password_hash=hashed_password)
-        db.session.add(new_user)
-        db.session.commit()
-
-        return redirect(url_for('api.login'))
-
-    return render_template('signup.html')
-
-@routes.route('/login', methods=['POST'])
+@routes.route('/login', methods=['PUT'])
 def login():
-    data = request.json
-    username = data.get('username')
-    password = data.get('password')
-    user = User.query.filter_by(username=username).first()
+    return render_template('login.html')
 
-    if user and user.check_password(password):
-        access_token = create_access_token(identity={'username': user.username})
-        return jsonify(access_token=access_token), 200
-    else:
-        return jsonify({"msg": "Wrong username or password. Try again"}), 401
+#     data = request.json
+#     username = data.get('username')
+#     password = data.get('password')
+#     user = User.query.filter_by(username=username).first()
+#
+#     if user and user.check_password(password):
+#         access_token = create_access_token(identity={'username': user.username})
+#         return jsonify(access_token=access_token), 200
+#     else:
+#         return jsonify({"msg": "Wrong username or password. Try again"}), 401
+
+@routes.route('/signup') #methods=['GET', 'POST'])
+def signup():
+    return "<h1>Sign Up</h1>"
+#     return render_template('signup.html')
+#     if request.method == 'POST':
+#         username = request.form.get('username')
+#         password = request.form.get('password')
+#
+#         if User.query.filter_by(username=username).first():
+#             return render_template('signup.html', error="Username already taken")
+#
+#         hashed_password = generate_password_hash(password)
+#         new_user = User(username=username, password_hash=hashed_password)
+#         db.session.add(new_user)
+#         db.session.commit()
+#
+#         return redirect(url_for('api.login'))
+#
+#     return render_template('signup.html')
+#
 
 
-@routes.route('/logout', methods=['POST'])
-@jwt_required()
+@routes.route('/logout') #, methods=['POST'])
+# @jwt_required()
 def logout():
-    jti = get_jwt()["jti"]
-    db.session.add(TokenBlocklist(jti=jti))
-    db.session.commit()
-    return jsonify(msg="Successfully logged out"), 200
+    return "<h1>Logout</h1>"
+#     jti = get_jwt()["jti"]
+#     db.session.add(TokenBlocklist(jti=jti))
+#     db.session.commit()
+#     return jsonify(msg="Successfully logged out"), 200
+#
 
 @routes.route('/form')
-@jwt_required()
+# @jwt_required
 def form():
-    return render_template('form.html')
+    return "<h1>Employment Contract Generator - This would be the dashboard</h1>"
+        #(render_template('form.html'))
 
 
 # @routes.route('/contract_types', methods=['GET'])

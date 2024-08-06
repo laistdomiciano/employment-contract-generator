@@ -4,10 +4,15 @@ from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
 from .config import Config
 from .models import db, TokenBlocklist
+from .routes import *
 
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'mysupersecretkey'
+
+    from .routes import routes
+    # from .auth import auth
+    app.register_blueprint(routes, url_prefix='/')
 
     return app
 
