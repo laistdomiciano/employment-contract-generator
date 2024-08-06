@@ -2,9 +2,9 @@ from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt, create_access_token
 from models import User, Employee, ContractType, TokenBlocklist, db
 
-bp = Blueprint('api', __name__)
+routes = Blueprint('routes', __name__)
 
-@bp.route('/signup', methods=['GET', 'POST'])
+@routes.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
         username = request.form.get('username')
@@ -22,7 +22,7 @@ def signup():
 
     return render_template('signup.html')
 
-@bp.route('/login', methods=['POST'])
+@routes.route('/login', methods=['POST'])
 def login():
     data = request.json
     username = data.get('username')
@@ -36,7 +36,7 @@ def login():
         return jsonify({"msg": "Wrong username or password. Try again"}), 401
 
 
-@bp.route('/logout', methods=['POST'])
+@routes.route('/logout', methods=['POST'])
 @jwt_required()
 def logout():
     jti = get_jwt()["jti"]
@@ -44,19 +44,19 @@ def logout():
     db.session.commit()
     return jsonify(msg="Successfully logged out"), 200
 
-@bp.route('/form')
+@routes.route('/form')
 @jwt_required()
 def form():
     return render_template('form.html')
 
 
-# @bp.route('/contract_types', methods=['GET'])
+# @routes.route('/contract_types', methods=['GET'])
 # @jwt_required()
 # def get_contract_types():
 #     contract_types = ContractType.query.all()
 #     pass
 #
-# @bp.route('/contracts', methods=['POST'])
+# @routes.route('/contracts', methods=['POST'])
 # @jwt_required()
 # def create_contract():
 #     data = request.json

@@ -24,6 +24,6 @@ def create_app():
     #     return token is not None
     #
     # from . import routes
-    # app.register_blueprint(routes.bp)
+    # app.register_blueprint(routes.routes)
     #
     # return app
