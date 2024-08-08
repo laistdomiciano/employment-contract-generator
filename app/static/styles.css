@@ -1,51 +1,61 @@
 body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        form {
-            max-width: 600px;
-            margin: auto;
-        }
-        label {
-            display: block;
-            margin-top: 10px;
-        }
-        input, textarea {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            box-sizing: border-box;
-        }
-        button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
+            position: relative;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background-image: url('{{ url_for('static', filename='home.png') }}');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            overflow: hidden;
         }
 
-body {
-    font-family: Arial, sans-serif;
-    margin: 50px;
-}
-dashboard {
-    display: flex;
-    flex-direction: column;
-    max-width: 300px;
-}
-label {
-    margin-top: 10px;
-}
-input {
-    margin-bottom: 10px;
-}
-button {
-    margin-top: 20px;
-}
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.6); /* Adjust the opacity and color as needed */
+            z-index: 0;
+        }
+
+        header, main, footer {
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.8); /* Optional: To make the header stand out */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: To add a shadow to the header */
+        }
+
+        .button-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .button-container a {
+            text-decoration: none;
+            padding: 10px 20px;
+            color: white;
+            background-color: #28a745; /* Green color */
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .button-container a:hover {
+            background-color: #218838; /* Darker green for hover effect */
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
 .dropdown {
     position: relative;
     display: inline-block;

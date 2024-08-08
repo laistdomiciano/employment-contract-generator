@@ -1,6 +1,12 @@
 {% extends "home.html" %}
 
 {% block content %}
+   <header>
+        </div>
+        <div class="button-container">
+            <a href="{{ url_for('routes.logout') }}">Logout</a>
+        </div>
+   </header>
     <h1>Employment Contract Generator</h1>
     <h2>Welcome to the Dashboard</h2>
     <form action="{{ url_for('routes.dashboard') }}" method="post">
@@ -12,10 +18,6 @@
             <a href="#">Part-Time</a>
             <a href="#">Freelance</a>
         </div>
-    </div>
-    <div class="logout">
-    <button type="logout">Logout</button>
-    </div>
     </form>
 
 {% endblock %}
