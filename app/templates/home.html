@@ -2,9 +2,89 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Employment Contract Generator{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            position: relative;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background-image: url('{{ url_for('static', filename='home.png') }}');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.6); /* Adjust the opacity and color as needed */
+            z-index: 0;
+        }
+
+        header, main, footer {
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.8); /* Optional: To make the header stand out */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: To add a shadow to the header */
+        }
+
+        .button-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .button-container a {
+            text-decoration: none;
+            padding: 10px 20px;
+            color: white;
+            background-color: #007BFF;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .button-container a:hover {
+            background-color: #0056b3;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <h1>Employment Contract Generator</h1>
+    <header>
+        <div>
+            <h1>Employment Contract Generator</h1>
+        </div>
+        <div class="button-container">
+            <a href="{{ url_for('routes.login') }}">Login</a>
+            <a href="{{ url_for('routes.signup') }}">Sign Up</a>
+        </div>
+    </header>
+    <main>
+        {% block content %}
+        <h2>This is a Flask-based API that allows users to generate employment contracts.</h2>
+        <h2>Users can choose from three types of contracts: Full-Time Employment, Part-Time Employment, and Freelance Contract.</h2>
+        <h2>The application uses JWT for authentication and PostgreSQL for data storage. </h2>
+        {% endblock %}
+    </main>
+    <footer>
+        This application was developed with a lot of love by Lais Domiciano
+    </footer>
 </body>
 </html>

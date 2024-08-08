@@ -6,7 +6,6 @@ routes = Blueprint('routes', __name__)
 
 @routes.route('/')
 def home():
-    # return <h1>Employment Contract Generator</h1>
     return render_template('home.html')
 
 
@@ -26,32 +25,19 @@ def login():
 
 @routes.route('/signup', methods=['GET', 'POST'])
 def signup():
-    if request.method == 'POST':
-        # Handle signup logic here
-        pass
+    # if request.method == 'POST':
+    #     username = request.form.get('username')
+    #     password = request.form.get('password')
+    #
+    #     if User.query.filter_by(username=username).first():
+    #         return render_template('signup.html', error="Username already taken")
+    #
+    # hashed_password = generate_password_hash(password)
+    # new_user = User(username=username, password_hash=hashed_password)
+    # db.session.add(new_user)
+    # db.session.commit()
+    #     return redirect(url_for('routes.login'))
     return render_template('signup.html')
-
-
-# @routes.route('/signup') #methods=['GET', 'POST'])
-# def signup():
-#     return "<h1>Sign Up</h1>"
-#     return render_template('signup.html')
-#     if request.method == 'POST':
-#         username = request.form.get('username')
-#         password = request.form.get('password')
-#
-#         if User.query.filter_by(username=username).first():
-#             return render_template('signup.html', error="Username already taken")
-#
-#         hashed_password = generate_password_hash(password)
-#         new_user = User(username=username, password_hash=hashed_password)
-#         db.session.add(new_user)
-#         db.session.commit()
-#
-#         return redirect(url_for('api.login'))
-#
-#     return render_template('signup.html')
-#
 
 
 @routes.route('/logout') #, methods=['POST'])
@@ -69,18 +55,22 @@ def logout():
 def dashboard():
     return render_template('dashboard.html')
 
+
 # @routes.route('/contract_types', methods=['GET'])
 # @jwt_required()
 # def get_contract_types():
 #     contract_types = ContractType.query.all()
 #     pass
-#
+
+
 # @routes.route('/contracts', methods=['POST'])
 # @jwt_required()
 # def create_contract():
 #     data = request.json
 #     pass
-#
+
+
+
 # # Here you would generate the PDF and return it.
 
 

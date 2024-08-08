@@ -1,3 +1,3 @@
-document.querySelector('form').addEventListener('submit', function(event) {
+document.querySelector('dashboard').addEventListener('submit', function(event) {
     // Perform validation
 });
