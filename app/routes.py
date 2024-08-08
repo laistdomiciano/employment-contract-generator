@@ -4,7 +4,6 @@ from flask_jwt_extended import jwt_required, get_jwt, create_access_token
 
 routes = Blueprint('routes', __name__)
 
-
 @routes.route('/')
 def home():
     # return <h1>Employment Contract Generator</h1>

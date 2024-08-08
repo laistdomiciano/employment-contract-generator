@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Employment Contract Generator</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block content %}
     <h1>Employment Contract Generator</h1>
     <h2>Welcome to the Dashboard</h2>
-    <h3>{% block title %}What type of employment contract would you like to generate?{% endblock %}</h3>
+    <form action="{{ url_for('routes.dashboard') }}" method="post">
+    <h3>What type of employment contract would you like to generate?</h3>
     <div class="dropdown">
         <button class="dropdown-button">Dropdown button</button>
         <div class="dropdown-content">
@@ -20,5 +16,6 @@
     <div class="logout">
     <button type="logout">Logout</button>
     </div>
-</body>
-</html>
+    </form>
+
+{% endblock %}

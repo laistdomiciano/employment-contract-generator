@@ -32,7 +32,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 50px;
 }
-form {
+dashboard {
     display: flex;
     flex-direction: column;
     max-width: 300px;
