@@ -33,7 +33,6 @@ def signup():
     return render_template('signup.html')
 
 
-
 # @routes.route('/signup') #methods=['GET', 'POST'])
 # def signup():
 #     return "<h1>Sign Up</h1>"
@@ -64,14 +63,12 @@ def logout():
 #     db.session.add(TokenBlocklist(jti=jti))
 #     db.session.commit()
 #     return jsonify(msg="Successfully logged out"), 200
-#
 
-@routes.route('/form')
+
+@routes.route('/dashboard')
 # @jwt_required
-def form():
-    return "<h1>Employment Contract Generator - This would be the dashboard</h1>"
-        #(render_template('form.html'))
-
+def dashboard():
+    return render_template('dashboard.html')
 
 # @routes.route('/contract_types', methods=['GET'])
 # @jwt_required()
