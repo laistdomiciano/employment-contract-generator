@@ -86,3 +86,36 @@ Specifies the commands that are executed by the app on the platform (for deploym
 Environment variables file containing sensitive information like database URI and secret keys.
 .gitignore
 Specifies files and directories that should be ignored by Git (e.g., venv/, .env, __pycache__/).
+
+
+Project Strucure:
+
+employment-contract-generator/
+│
+└── app/
+    │
+    ├── static/
+    │   ├── home.png
+    │   ├── styles.css
+    │   └── validation.js
+    │
+    ├── templates/
+    │   ├── dashboard.html
+    │   ├── freelance.html
+    │   ├── full-time.html
+    │   ├── home.html
+    │   ├── login.html
+    │   ├── part-time.html
+    │   └── signup.html
+    │
+    ├── __init__.py
+    ├── config.py
+    ├── models.py
+    ├── routes.py
+    └── utils.py
+    │
+    ├── contracts/
+    │   ├── freelance.txt
+    │   ├── full-time.txt
+    │   └── part-time.txt
+
