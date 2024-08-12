@@ -6,9 +6,14 @@ from .config import Config
 from .models import db, TokenBlocklist
 from .routes import *
 
+db = SQLAlchemy()
+DB_NAME = "generator.db"
+
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'mysupersecretkey'
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    db.init_app(app)
 
     from .routes import routes
     # from .auth import auth

@@ -3,6 +3,7 @@ from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
+DB_NAME = "generator.db"
 
 class TokenBlocklist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
