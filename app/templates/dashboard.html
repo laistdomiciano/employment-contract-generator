@@ -2,11 +2,6 @@
 
 {% block content %}
 <main class="dashboard-container">
-    <header>
-        <div class="button-container">
-            <a href="{{ url_for('routes.logout') }}">Logout</a>
-        </div>
-    </header>
     <div class="dashboard-content">
         <h1>Employment Contract Generator</h1>
         <h2>Welcome to the Dashboard</h2>
@@ -21,6 +16,10 @@
                 </div>
             </div>
         </form>
+    </div>
+    <!-- Move logout button here -->
+    <div class="logout-container">
+        <a href="{{ url_for('routes.logout') }}" class="logout-button">Logout</a>
     </div>
 </main>
 {% endblock %}
