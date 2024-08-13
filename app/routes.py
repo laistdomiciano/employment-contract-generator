@@ -1,6 +1,6 @@
-from flask import Blueprint, request, render_template, redirect, url_for
-from flask_jwt_extended import jwt_required, get_jwt, create_access_token
-# from models import User, Employee, ContractType, TokenBlocklist, db
+from flask import Blueprint, request, render_template, redirect, url_for,flash
+from models import User, Employee, Contract, db
+from werkzeug.security import generate_password_hash, check_password_hash
 
 routes = Blueprint('routes', __name__)
 
@@ -25,23 +25,29 @@ def login():
 
 @routes.route('/signup', methods=['GET', 'POST'])
 def signup():
-    # if request.method == 'POST':
-    #     username = request.form.get('username')
-    #     password = request.form.get('password')
-    #
-    #     if User.query.filter_by(username=username).first():
-    #         return render_template('signup.html', error="Username already taken")
-    #
-    # hashed_password = generate_password_hash(password)
-    # new_user = User(username=username, password_hash=hashed_password)
-    # db.session.add(new_user)
-    # db.session.commit()
-    #     return redirect(url_for('routes.login'))
+    if request.method == 'POST':
+        email = request.form.get('email')
+        name = request.form.get('name')
+        username = request.form.get('username')
+        password1 = request.form.get('password1')
+        passoword2 = request.form.get('password1')
+
+        if len(email) < 8:
+            flash('Email must be greater than 8 characters.', category='error')
+        elif len(username) < 5:
+            flash('Username must be greater than 5 characters.', category='error')
+        elif len(password1) < 4:
+            flash('Username must be greater than 4 characters.', category='error')
+        elif password1 != passoword2 :
+            flash('Password do not match', category='error')
+        else:
+            new_user = User(email=Email, username=Username, name=Name, password=  )
+            flash('Account created!', category='success')
+
     return render_template('signup.html')
 
 
 @routes.route('/logout') #, methods=['POST'])
-# @jwt_required()
 def logout():
     return "<h1>Logout</h1>"
 #     jti = get_jwt()["jti"]
@@ -51,7 +57,6 @@ def logout():
 
 
 @routes.route('/dashboard')
-# @jwt_required
 def dashboard():
     return render_template('dashboard.html')
 
