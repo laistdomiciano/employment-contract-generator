@@ -71,11 +71,14 @@
         <div>
             <h1>Employment Contract Generator</h1>
         </div>
+        {% if not hide_buttons %}
         <div class="button-container">
             <a href="{{ url_for('routes.login') }}">Login</a>
             <a href="{{ url_for('routes.signup') }}">Sign Up</a>
         </div>
+        {% endif %}
     </header>
+
     <main>
         {% block content %}
         <h2>This is a Flask-based API that allows users to generate employment contracts.</h2>
@@ -83,6 +86,7 @@
         <h2>The application uses JWT for authentication and PostgreSQL for data storage. </h2>
         {% endblock %}
     </main>
+
     <footer>
         This application was developed with a lot of love by Lais Domiciano
     </footer>

@@ -2,6 +2,7 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
+
 db = SQLAlchemy()
 DB_NAME = 'app/generator.db'
 
@@ -14,11 +15,12 @@ def create_app():
     from .routes import routes
     app.register_blueprint(routes, url_prefix='/')
 
-    from .models import User, Employee, Contract
-
-    create_database(app)
+    # from .models import User, Employee, Contract
+    #
+    # create_database(app)
 
     return app
+
 
 def create_database(app):
     if not os.path.exists(DB_NAME):

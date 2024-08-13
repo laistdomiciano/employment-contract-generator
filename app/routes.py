@@ -1,8 +1,6 @@
 from flask import Blueprint, request, render_template, redirect, url_for,flash
-from models import *
 from werkzeug.security import generate_password_hash, check_password_hash
-from utils import load_contract_template
-from .models import ContractType, Contract, db
+# from models import User, Employee, ContractType, Contract, db
 
 routes = Blueprint('routes', __name__)
 
@@ -22,7 +20,7 @@ def login():
             error = 'Invalid credentials'
         else:
             return redirect(url_for('routes.home'))
-    return render_template('login.html', error=error)
+    return render_template('login.html', hide_buttons=True, error=error)
 
 
 @routes.route('/signup', methods=['GET', 'POST'])
@@ -52,12 +50,12 @@ def signup():
             flash('Account created!', category='success')
             return redirect(url_for('routes.home'))
 
-    return render_template('signup.html')
+    return render_template('signup.html', hide_buttons=True)
 
 
 @routes.route('/logout') #, methods=['POST'])
 def logout():
-    return "<h1>Logout</h1>"
+    return "<h1>You are Logout</h1>"
 #     jti = get_jwt()["jti"]
 #     db.session.add(TokenBlocklist(jti=jti))
 #     db.session.commit()
@@ -66,7 +64,7 @@ def logout():
 
 @routes.route('/dashboard')
 def dashboard():
-    return render_template('dashboard.html')
+    return render_template('dashboard.html', hide_buttons=True)
 
 
 @routes.route('/create-contract', methods=['POST'])
