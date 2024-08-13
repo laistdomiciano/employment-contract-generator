@@ -31,7 +31,13 @@ header {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     position: relative;
     z-index: 1;
-    height: 60px; /* Ensure enough height for the header */
+    height: 60px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
 }
 
 .button-container {
@@ -54,7 +60,7 @@ header {
 
 main {
     padding: 20px;
-    margin-top: 70px; /* Space to account for the header height */
+    margin-top: 70px;
     background: rgba(255, 255, 255, 0.9);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -117,29 +123,29 @@ h1, h2 {
 }
 
 /* Form Container Styles */
-.form-container, .dashboard-container {
-    max-width: 800px; /* Increase max-width for better readability */
-    margin: 20px auto; /* Center horizontally and add spacing */
+.form-container {
+    max-width: 600px;
+    margin: 20px auto;
     padding: 20px;
     background: rgba(255, 255, 255, 0.9);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.form-container h2, .dashboard-container h2 {
+.form-container h2 {
     margin-top: 0;
     font-size: 24px;
     color: #333;
 }
 
 /* Form Element Styles */
-.form-container label, .dashboard-container label {
+.form-container label {
     display: block;
     margin: 10px 0 5px;
     font-weight: bold;
 }
 
-.form-container input, .dashboard-container input {
+.form-container input {
     width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
@@ -147,7 +153,7 @@ h1, h2 {
     box-sizing: border-box;
 }
 
-.form-container button, .dashboard-container button {
+.form-container button {
     width: 100%;
     padding: 10px;
     background-color: #28a745;
@@ -159,20 +165,26 @@ h1, h2 {
     transition: background-color 0.3s;
 }
 
-.form-container button:hover, .dashboard-container button:hover {
+.form-container button:hover {
     background-color: #218838;
 }
 
-.form-container p, .dashboard-container p {
+.form-container p {
     text-align: center;
     margin-top: 20px;
 }
 
-.form-container p a, .dashboard-container p a {
+.form-container p a {
     color: #007bff;
     text-decoration: none;
 }
 
-.form-container p a:hover, .dashboard-container p a:hover {
+.form-container p a:hover {
     text-decoration: underline;
+}
+
+/* Error Message Styles */
+.error-message {
+    color: red;
+    text-align: center;
 }
