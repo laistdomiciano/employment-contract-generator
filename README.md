@@ -93,28 +93,30 @@ Project Strucure:
 employment-contract-generator/
 │
 └── app/
-    │
-    ├── static/
-    │   ├── home.png
-    │   ├── styles.css
-    │   └── validation.js
-    │
-    ├── templates/
-    │   ├── dashboard.html
-    │   ├── freelance.html
-    │   ├── full-time.html
-    │   ├── home.html
-    │   ├── login.html
-    │   ├── part-time.html
-    │   └── signup.html
-    │
-    ├── __init__.py
-    ├── models.py
-    ├── routes.py
-    └── utils.py
-    │
-    ├── contracts/
-    │   ├── freelance.txt
-    │   ├── full-time.txt
-    │   └── part-time.txt
+│   │
+│   │── static/
+│   │   ├── home.png
+│   │   ├── styles.css
+│   │   └── validation.js
+│   │
+│   │── templates/
+│       ├── dashboard.html
+│       ├── freelance.html
+│       ├── full-time.html
+│       ├── home.html
+│       ├── login.html
+│       ├── part-time.html
+│       └── signup.html
+│   
+├── contracts/
+│   ├── freelance.txt
+│   ├── full-time.txt
+    └── part-time.txt
+├── .env
+├── .gitignore
+├── README.md
+├── requirements.txt
+├── run.py
+├── seed.py
+
 

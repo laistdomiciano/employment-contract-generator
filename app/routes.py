@@ -1,6 +1,8 @@
 from flask import Blueprint, request, render_template, redirect, url_for,flash
 from models import *
 from werkzeug.security import generate_password_hash, check_password_hash
+from utils import load_contract_template
+from .models import ContractType, Contract, db
 
 routes = Blueprint('routes', __name__)
 
@@ -66,6 +68,15 @@ def logout():
 def dashboard():
     return render_template('dashboard.html')
 
+
+@routes.route('/create-contract', methods=['POST'])
+def create_contract():
+    contract_type = request.form.get('contract_type')  # This would be from a form field
+    template = load_contract_template(contract_type)
+    new_contract = Contract(template=template, type=contract_type)
+    db.session.add(new_contract)
+    db.session.commit()
+    return redirect(url_for('routes.dashboard'))  # Redirect to a dashboard or another page
 
 # @routes.route('/contract_types', methods=['GET'])
 # @jwt_required()

@@ -1,5 +1,6 @@
 from flask_login import UserMixin
 from . import db
+from enum import Enum
 
 
 class User(db.Model, UserMixin):
@@ -15,6 +16,7 @@ class User(db.Model, UserMixin):
     # def check_password(self, password):
     #     return check_password_hash(self.password_hash, password)
 
+
 class Employee(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(150))
@@ -23,11 +25,15 @@ class Employee(db.Model):
     contracts = db.relationship('Contract')
 
 
+class ContractType(Enum):
+    FREELANCE = "freelance"
+    FULL_TIME = "full-time"
+    PART_TIME = "part-time"
+
+
 class Contract(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    template = db.Column(db.Text)  # How can I get the templates from here!!!!!????
-    type = db.Column(db.String(200)) #should have only 3 options from the templates???
-    date = db.Column(db.DateTime(Timezone=True), default=func.now())
+    template = db.Column(db.Text)
+    type = db.Column(db.Enum(ContractType))
+    date = db.Column(db.DateTime(timezone=True), default=func.now())
     employee_id = db.Column(db.Integer, db.ForeignKey('employee.id'))
-
-

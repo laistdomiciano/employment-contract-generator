@@ -3,7 +3,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
-DB_NAME = "generator.db"
+DB_NAME = 'app/generator.db'
 
 def create_app():
     app = Flask(__name__)
@@ -25,24 +25,3 @@ def create_database(app):
         with app.app_context():
             db.create_all()
         print('Created Database!')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
