@@ -109,7 +109,6 @@ employment-contract-generator/
     │   └── signup.html
     │
     ├── __init__.py
-    ├── config.py
     ├── models.py
     ├── routes.py
     └── utils.py

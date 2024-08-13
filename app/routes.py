@@ -1,5 +1,5 @@
 from flask import Blueprint, request, render_template, redirect, url_for,flash
-from models import User, Employee, Contract, db
+from models import *
 from werkzeug.security import generate_password_hash, check_password_hash
 
 routes = Blueprint('routes', __name__)
@@ -34,6 +34,8 @@ def signup():
 
         if len(email) < 8:
             flash('Email must be greater than 8 characters.', category='error')
+        if len(name) < 8:
+            flash('Name must be greater than 8 characters.', category='error')
         elif len(username) < 5:
             flash('Username must be greater than 5 characters.', category='error')
         elif len(password1) < 4:
@@ -41,8 +43,12 @@ def signup():
         elif password1 != passoword2 :
             flash('Password do not match', category='error')
         else:
-            new_user = User(email=Email, username=Username, name=Name, password=  )
+            new_user = User(email=Email, username=Username, name=Name, password=generate_password_hash(password1, method='sha256'))
+            db.session.add(new_user)
+            db.session.commit()
+
             flash('Account created!', category='success')
+            return redirect(url_for('routes.home'))
 
     return render_template('signup.html')
 
