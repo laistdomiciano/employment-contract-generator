@@ -15,9 +15,9 @@ def create_app():
     from .routes import routes
     app.register_blueprint(routes, url_prefix='/')
 
-    # from .models import User, Employee, Contract
-    #
-    # create_database(app)
+    from .models import User, Employee, Contract
+
+    create_database(app)
 
     return app
 
