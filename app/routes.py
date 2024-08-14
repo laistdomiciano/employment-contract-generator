@@ -1,8 +1,10 @@
 from flask import Blueprint
 routes = Blueprint('routes', __name__)
-from flask import Blueprint, request, render_template, redirect, url_for, flash, Flask
+from flask import Blueprint, request, render_template, redirect, url_for, flash, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required
 from .models import User, Employee, ContractType, Contract, db
+
 
 routes = Blueprint('routes', __name__)
 
@@ -10,19 +12,46 @@ routes = Blueprint('routes', __name__)
 def home():
     return render_template('home.html')
 
+@routes.route('/get_name', methods=['GET'])
+@jwt_required()
+def get_name():
+    # Extract the user ID from the JWT
+    user_id = get_jwt_identity()
+    user = User.query.filter_by(id=user_id).first()
 
-@routes.route('/login', methods=['GET', 'POST'])
+    # Check if user exists
+    if user:
+        return jsonify({'message': 'User found', 'name': user.name})
+    else:
+        return jsonify({'message': 'User not found'}), 404
+
+@routes.route('/login', methods=['POST'])
 def login():
-    error = None
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        # Authentication logic here
-        if username != 'admin' or password != 'secret':
-            error = 'Invalid credentials'
-        else:
-            return redirect(url_for('routes.home'))
-    return render_template('login.html', hide_buttons=True, error=error)
+    data = request.get_json()
+    username = data['username']
+    password = data['password']
+    print('Received data:', username, password)
+
+    user = User.query.filter_by(username=username).first()
+
+    if user and bcrypt.check_password_hash(user.password, password):
+        access_token = create_access_token(identity=user.id)
+        return jsonify({'message': 'Login Success', 'access_token': access_token})
+    else:
+        return jsonify({'message': 'Login Failed'}), 401
+
+# @routes.route('/login', methods=['GET', 'POST'])
+# def login():
+#     error = None
+#     if request.method == 'POST':
+#         username = request.form['username']
+#         password = request.form['password']
+#         # Authentication logic here
+#         if username != 'admin' or password != 'secret':
+#             error = 'Invalid credentials'
+#         else:
+#             return redirect(url_for('routes.home'))
+#     return render_template('login.html', hide_buttons=True, error=error)
 
 
 @routes.route('/signup', methods=['GET', 'POST'])

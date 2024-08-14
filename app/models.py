@@ -9,7 +9,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(100), unique=True)
     username = db.Column(db.String(80), unique=True)
     password = db.Column(db.String(100))
-    # contract_id = db.Column(db.Integer, db.ForeignKey('contract.id'))
+    is_active = db.Column(db.Boolean(), default=True)
     contracts = db.relationship("Contract", back_populates="user")
 
     # def set_password(self, password):
