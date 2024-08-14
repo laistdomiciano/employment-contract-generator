@@ -1,10 +1,12 @@
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+# from routes import routes
+from .routes import routes
 
 
 db = SQLAlchemy()
-DB_NAME = 'app/generator.db'
+DB_NAME = 'generator.db'
 
 def create_app():
     app = Flask(__name__)
@@ -12,10 +14,7 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     db.init_app(app)
 
-    from .routes import routes
     app.register_blueprint(routes, url_prefix='/')
-
-    from .models import User, Employee, Contract
 
     create_database(app)
 

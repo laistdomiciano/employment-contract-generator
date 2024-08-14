@@ -1,6 +1,7 @@
 from flask_login import UserMixin
-from . import db
+from __init__ import db
 from enum import Enum
+from sqlalchemy.orm import relationship
 
 
 class User(db.Model, UserMixin):
@@ -9,6 +10,8 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(100), unique=True)
     username = db.Column(db.String(80), unique=True)
     password = db.Column(db.String(100))
+    # contract_id = db.Column(db.Integer, db.ForeignKey('contract.id'))
+    contracts = relationship("Contract", back_populates="user")
 
     # def set_password(self, password):
     #     self.password_hash = generate_password_hash(password)
@@ -22,7 +25,7 @@ class Employee(db.Model):
     name = db.Column(db.String(150))
     position = db.Column(db.String(150))
     department = db.Column(db.String(100))
-    contracts = db.relationship('Contract')
+    contracts = relationship("Contract", back_populates="employee")
 
 
 class ContractType(Enum):
@@ -37,3 +40,6 @@ class Contract(db.Model):
     type = db.Column(db.Enum(ContractType))
     date = db.Column(db.DateTime(timezone=True), default=func.now())
     employee_id = db.Column(db.Integer, db.ForeignKey('employee.id'))
+    employee = relationship("Employee", back_populates="contract")
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user = relationship("User", back_populates="contracts")

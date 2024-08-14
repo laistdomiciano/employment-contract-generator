@@ -1,5 +1,5 @@
 from app import create_app, db
-from app.models import User, Employee, ContractType
+from app.models import User, Employee, ContractType, Contract
 
 app = create_app()
 
