@@ -1,8 +1,9 @@
+from flask import Blueprint
+routes = Blueprint('routes', __name__)
 from flask import Blueprint, request, render_template, redirect, url_for, flash, Flask
 from werkzeug.security import generate_password_hash, check_password_hash
-from models import User, Employee, ContractType, Contract, db
+from .models import User, Employee, ContractType, Contract, db
 
-app = Flask('__main__')
 routes = Blueprint('routes', __name__)
 
 @routes.route('/')
