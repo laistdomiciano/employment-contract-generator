@@ -1,10 +1,13 @@
 from flask import Blueprint
 routes = Blueprint('routes', __name__)
-from flask import Blueprint, request, render_template, redirect, url_for, flash, jsonify
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_jwt_extended import JWTManager, create_access_token, jwt_required
+from flask import Blueprint
 from .models import User, Employee, ContractType, Contract, db
-
+from flask import Flask, render_template, request, jsonify, redirect, url_for
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+from werkzeug.security import generate_password_hash, check_password_hash
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+import json
 
 routes = Blueprint('routes', __name__)
 
@@ -12,85 +15,26 @@ routes = Blueprint('routes', __name__)
 def home():
     return render_template('home.html')
 
-@routes.route('/get_name', methods=['GET'])
-@jwt_required()
-def get_name():
-    # Extract the user ID from the JWT
-    user_id = get_jwt_identity()
-    user = User.query.filter_by(id=user_id).first()
 
-    # Check if user exists
-    if user:
-        return jsonify({'message': 'User found', 'name': user.name})
-    else:
-        return jsonify({'message': 'User not found'}), 404
+# Authentication routes
+@routes.route('/signup', methods=['POST'])
+def signup():
+    data = request.get_json()
+    hashed_password = generate_password_hash(data['password'], method='sha256')
+    new_user = User(username=data['username'], password=hashed_password)
+    db.session.add(new_user)
+    db.session.commit()
+    return jsonify({'message': 'User created successfully'}), 201
+
 
 @routes.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
-    username = data['username']
-    password = data['password']
-    print('Received data:', username, password)
-
-    user = User.query.filter_by(username=username).first()
-
-    if user and bcrypt.check_password_hash(user.password, password):
-        access_token = create_access_token(identity=user.id)
-        return jsonify({'message': 'Login Success', 'access_token': access_token})
-    else:
-        return jsonify({'message': 'Login Failed'}), 401
-
-# @routes.route('/login', methods=['GET', 'POST'])
-# def login():
-#     error = None
-#     if request.method == 'POST':
-#         username = request.form['username']
-#         password = request.form['password']
-#         # Authentication logic here
-#         if username != 'admin' or password != 'secret':
-#             error = 'Invalid credentials'
-#         else:
-#             return redirect(url_for('routes.home'))
-#     return render_template('login.html', hide_buttons=True, error=error)
-
-
-@routes.route('/signup', methods=['GET', 'POST'])
-def signup():
-    if request.method == 'POST':
-        email = request.form.get('email')
-        name = request.form.get('name')
-        username = request.form.get('username')
-        password1 = request.form.get('password1')
-        passoword2 = request.form.get('password1')
-
-        if len(email) < 8:
-            flash('Email must be greater than 8 characters.', category='error')
-        if len(name) < 8:
-            flash('Name must be greater than 8 characters.', category='error')
-        elif len(username) < 5:
-            flash('Username must be greater than 5 characters.', category='error')
-        elif len(password1) < 4:
-            flash('Username must be greater than 4 characters.', category='error')
-        elif password1 != passoword2 :
-            flash('Password do not match', category='error')
-        else:
-            new_user = User(email=Email, username=Username, name=Name, password=generate_password_hash(password1, method='sha256'))
-            db.session.add(new_user)
-            db.session.commit()
-
-            flash('Account created!', category='success')
-            return redirect(url_for('routes.home'))
-
-    return render_template('signup.html', hide_buttons=True)
-
-
-@routes.route('/logout') #, methods=['POST'])
-def logout():
-    return "<h1>You are Logout</h1>"
-#     jti = get_jwt()["jti"]
-#     db.session.add(TokenBlocklist(jti=jti))
-#     db.session.commit()
-#     return jsonify(msg="Successfully logged out"), 200
+    user = User.query.filter_by(username=data['username']).first()
+    if not user or not check_password_hash(user.password, data['password']):
+        return jsonify({'message': 'Invalid credentials'}), 401
+    access_token = create_access_token(identity=user.id)
+    return jsonify(access_token=access_token)
 
 
 @routes.route('/dashboard')
@@ -98,30 +42,40 @@ def dashboard():
     return render_template('dashboard.html', hide_buttons=True)
 
 
+# Contract creation (only accessible with JWT)
 @routes.route('/create-contract', methods=['POST'])
+@jwt_required()
 def create_contract():
-    contract_type = request.form.get('contract_type')  # This would be from a form field
-    template = load_contract_template(contract_type)
-    new_contract = Contract(template=template, type=contract_type)
+    user_id = get_jwt_identity()
+    data = request.get_json()
+    new_contract = Contract(user_id=user_id, employee_id=data['employee_id'], contract_type_id=data['contract_type_id'], contract_json=json.dumps(data['contract_json']))
     db.session.add(new_contract)
     db.session.commit()
-    return redirect(url_for('routes.dashboard'))  # Redirect to a dashboard or another page
-
-# @routes.route('/contract_types', methods=['GET'])
-# @jwt_required()
-# def get_contract_types():
-#     contract_types = ContractType.query.all()
-#     pass
+    return jsonify({'message': 'Contract created successfully'}), 201
 
 
-# @routes.route('/contracts', methods=['POST'])
-# @jwt_required()
-# def create_contract():
-#     data = request.json
-#     pass
+# PDF Generation
+@routes.route('/contract-pdf/<int:contract_id>', methods=['GET'])
+@jwt_required()
+def generate_contract_pdf(contract_id):
+    contract = Contract.query.get(contract_id)
+    if not contract:
+        return jsonify({'message': 'Contract not found'}), 404
 
+    # Create a PDF from JSON
+    c = canvas.Canvas(f"contract_{contract_id}.pdf", pagesize=letter)
+    c.drawString(100, 750, f"Contract ID: {contract.id}")
+    c.drawString(100, 735, f"User ID: {contract.user_id}")
+    c.drawString(100, 720, f"Employee ID: {contract.employee_id}")
+    c.drawString(100, 705, f"Contract Type ID: {contract.contract_type_id}")
 
+    contract_data = json.loads(contract.contract_json)
+    y = 690
+    for key, value in contract_data.items():
+        c.drawString(100, y, f"{key}: {value}")
+        y -= 15
 
-# # Here you would generate the PDF and return it.
+    c.save()
+    return jsonify({'message': 'PDF generated successfully'}), 200
 
 

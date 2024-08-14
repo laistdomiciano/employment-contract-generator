@@ -8,12 +8,11 @@ from app.routes import routes
 DB_NAME = 'generator.db'
 
 
-
 def create_app():
     myapp = Flask(__name__)
     myapp.config['SECRET_KEY'] = 'mysupersecretkey'
-    myapp.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
-    myapp.config['JWT_TOKEN_LOCATION'] = ['headers']
+    myapp.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://username:password@localhost/{DB_NAME}'
+    myapp.config['JWT_SECRET_KEY'] = 'mysupersecretkejwt'
 
     db.init_app(myapp)
     JWTManager(myapp)

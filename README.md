@@ -112,6 +112,8 @@ employment-contract-generator/
 │   ├── freelance.txt
 │   ├── full-time.txt
 │   └── part-time.txt
+├── instance/
+│   ├── generator.txt
 ├── .env
 ├── .gitignore
 ├── README.md
