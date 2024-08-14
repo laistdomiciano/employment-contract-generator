@@ -5,18 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Employment Contract Generator{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='validation.js') }}"></script>
 </head>
 <body>
     <header>
         <h1>Employment Contract Generator</h1>
-        {% if not hide_buttons %}
-        <div class="button-container">
-            <a href="{{ url_for('routes.login') }}">Login</a>
-            <a href="{{ url_for('routes.signup') }}">Sign Up</a>
-        </div>
-        {% endif %}
     </header>
     <main>
+
+        <button type="button" id="myButton">Click Me!</button>
         {% block content %}
         <h2>This is a Flask-based API that allows users to generate employment contracts.</h2>
         <h2>Users can choose from three types of contracts: Full-Time Employment, Part-Time Employment, and Freelance Contract.</h2>
