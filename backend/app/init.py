@@ -1,8 +1,12 @@
 from flask import Flask
-import os
 from backend.app.models import db
 from flask_jwt_extended import JWTManager
 from backend.app.routes import routes
+import os
+
+db = SQLAlchemy()
+migrate = Migrate()
+jwt = JWTManager()
 
 def create_app():
     myapp = Flask(__name__)

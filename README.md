@@ -93,29 +93,28 @@ Project Directories Strucure:
 /employment_contract_generator
 ├── backend/
 │   ├── app/
-│   │   ├── init.py
-│   │   ├── models.py
-│   │   ├── routes.py
-│   │   ├── services.py
-│   │   ├── utils.py
-│   │   ├── auth.py
-│   │   └── config.py
-│   ├── migrations/
-│   ├── tests/
-│   │   ├── test_auth.py
-│   │   ├── test_contract.py
-│   │   └── test_validation.py
-│   ├── .env
-│   ├── requirements.txt
-│   ├── .pylintrc
-│   └── wsgi.py
-└── frontend/
-    ├── index.html           # Main entry point for the application
-    ├── styles.css           # Basic styling for the app
-    ├── scripts.js           # Main JavaScript file for handling UI logic
-    └── templates/           # HTML templates for different contract forms
-        ├── full_time.html   # Form template for Full-Time Employment contract
-        ├── part_time.html   # Form template for Part-Time Employment contract
-        └── freelance.html
+│   │   ├── init.py             
+│   │   ├── models.py           
+│   │   ├── routes.py           
+│   │   ├── services.py         
+│   │   ├── utils.py            
+│   │   ├── auth.py             
+│   │   ├── config.py           
+│   ├── migrations/             
+│   ├── tests/                  
+│   ├── .env                    
+│   ├── requirements.txt        
+│   ├── .pylintrc               
+│   └── wsgi.py                 
+├── frontend/
+│   ├── index.html              
+│   ├── styles.css              
+│   ├── script.js               
+│   ├── templates/              
+│   │   ├── fulltime.html
+│   │   ├── parttime.html
+│   │   ├── freelance.html
+└── README.md                  
+
 
 
