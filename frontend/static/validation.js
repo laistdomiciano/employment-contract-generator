@@ -1,5 +1,3 @@
-console.log("Oii");
-
 document.addEventListener('DOMContentLoaded', function() {
     function printHello() {
         console.log("hello");

@@ -88,37 +88,34 @@ Environment variables file containing sensitive information like database URI an
 Specifies files and directories that should be ignored by Git (e.g., venv/, .env, __pycache__/).
 
 
-Project Strucure:
+Project Directories Strucure:
 
-employment-contract-generator/
-│
-└── app/
-│   │
-│   │── static/
-│   │   ├── home.png
-│   │   ├── styles.css
-│   │   └── validation.js
-│   │
-│   │── templates/
-│       ├── dashboard.html
-│       ├── freelance.html
-│       ├── full-time.html
-│       ├── home.html
-│       ├── login.html
-│       ├── part-time.html
-│       └── signup.html
-│   
-├── contracts/
-│   ├── freelance.txt
-│   ├── full-time.txt
-│   └── part-time.txt
-├── instance/
-│   ├── generator.txt
-├── .env
-├── .gitignore
-├── README.md
-├── requirements.txt
-├── run.py
-├── seed.py
+/employment_contract_generator
+├── backend/
+│   ├── app/
+│   │   ├── init.py
+│   │   ├── models.py
+│   │   ├── routes.py
+│   │   ├── services.py
+│   │   ├── utils.py
+│   │   ├── auth.py
+│   │   └── config.py
+│   ├── migrations/
+│   ├── tests/
+│   │   ├── test_auth.py
+│   │   ├── test_contract.py
+│   │   └── test_validation.py
+│   ├── .env
+│   ├── requirements.txt
+│   ├── .pylintrc
+│   └── wsgi.py
+└── frontend/
+    ├── index.html           # Main entry point for the application
+    ├── styles.css           # Basic styling for the app
+    ├── scripts.js           # Main JavaScript file for handling UI logic
+    └── templates/           # HTML templates for different contract forms
+        ├── full_time.html   # Form template for Full-Time Employment contract
+        ├── part_time.html   # Form template for Part-Time Employment contract
+        └── freelance.html
 
 
