@@ -2,23 +2,31 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
-import os
 
 db = SQLAlchemy()
 migrate = Migrate()
 jwt = JWTManager()
 
-
 def create_app():
-    myapp = Flask(__name__)
+    app = Flask(__name__)
+    app.config.from_object('app.config.Config')
 
-    myapp.config.from_object('app.config.Config')
-
-    db.init_app(myapp)
-    migrate.init_app(myapp, db)
-    jwt.init_app(myapp)
+    db.init_app(app)
+    migrate.init_app(app, db)
+    jwt.init_app(app)
 
     from app.routes import routes_bp
-    myapp.register_blueprint(routes_bp)
+    app.register_blueprint(routes_bp)
 
-    return myapp
+    return app
+
+def create_database():
+    app = create_app()
+    with app.app_context():
+        db.create_all()
+        print("Database tables created successfully!")
+
+
+if __name__ == '__main__':
+    create_database()
+

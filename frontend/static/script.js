@@ -48,37 +48,30 @@ document.addEventListener('DOMContentLoaded', function() {
     function showContractForm(contractType) {
         // Fetch the appropriate form or show a modal for contract creation
         fetch(`/contract_form?type=${contractType}`)
-            .then(response => response.text())
-            .then(html => {
-                const formContainer = document.createElement('div');
-                formContainer.innerHTML = html;
-                document.body.appendChild(formContainer);
+                    .then(response => response.text())
+                    .then(html => {
+                        const modal = document.createElement('div');
+                        modal.id = 'contract-form-modal';
+                        modal.innerHTML = `
+                            <div id="modal-overlay"></div>
+                            <div id="modal-content">
+                                ${html}
+                                <button id="modal-close-button">Close</button>
+                            </div>
+                        `;
+                        document.body.appendChild(modal);
 
                 // Optionally, you can handle form submission here
-                const contractForm = document.querySelector('form#contract-form');
-                if (contractForm) {
-                    contractForm.addEventListener('submit', function(event) {
-                        event.preventDefault();
-                        const formData = new FormData(contractForm);
-                        fetch('/create_contract', {
-                            method: 'POST',
-                            body: formData
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.pdf_path) {
-                                alert(`Contract created successfully! Download it <a href="${data.pdf_path}" target="_blank">here</a>.`);
-                            } else {
-                                alert('An error occurred while creating the contract.');
-                            }
-                        });
+                const closeButton = document.getElementById('modal-close-button');
+                if (closeButton) {
+                    closeButton.addEventListener('click', function() {
+                        document.getElementById('contract-form-modal').remove();
                     });
                 }
             })
             .catch(error => console.error('Error fetching contract form:', error));
     }
 });
-
 
 
 
