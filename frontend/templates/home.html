@@ -10,6 +10,12 @@
 <body>
     <header>
         <h1>Employment Contract Generator</h1>
+        {% if not hide_buttons %}
+        <div class="button-container">
+            <a href="{{ url_for('routes.login') }}">Login</a>
+            <a href="{{ url_for('routes.signup') }}">Sign Up</a>
+        </div>
+        {% endif %}
     </header>
     <main>
 
