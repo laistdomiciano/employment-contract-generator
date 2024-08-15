@@ -3,23 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Employment Contract Generator{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <script src="{{ url_for('static', filename='validation.js') }}"></script>
+    <title>Employment Contract Generator</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
         <h1>Employment Contract Generator</h1>
-        {% if not hide_buttons %}
-        <div class="button-container">
-            <a href="{{ url_for('routes.login') }}">Login</a>
-            <a href="{{ url_for('routes.signup') }}">Sign Up</a>
-        </div>
-        {% endif %}
+        <nav>
+            <a href="/signup.html">Sign Up</a>
+            <a href="/login.html">Login</a>
+        </nav>
     </header>
-    <main>
-
-        <button type="button" id="myButton">Click Me!</button>
+    <main id="main-content">
         {% block content %}
         <h2>This is a Flask-based API that allows users to generate employment contracts.</h2>
         <h2>Users can choose from three types of contracts: Full-Time Employment, Part-Time Employment, and Freelance Contract.</h2>
@@ -27,7 +22,13 @@
         {% endblock %}
     </main>
     <footer>
-        This application was developed with a lot of love by Lais Domiciano
+        <p>&copy; 2024 Employment Contract Generator - Developed by <a
+            href="https://laistdomiciano.github.io/portfolio/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Lais Domiciano</a
+          >. <br />Made with &hearts; </p>
     </footer>
+    <script src="scripts.js"></script>
 </body>
 </html>

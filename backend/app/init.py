@@ -1,27 +1,24 @@
 from flask import Flask
-from backend.app.models import db
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
-from backend.app.routes import routes
 import os
 
 db = SQLAlchemy()
 migrate = Migrate()
 jwt = JWTManager()
 
+
 def create_app():
     myapp = Flask(__name__)
-    myapp.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'mysupersecretkey')
-    myapp.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI', 'postgresql://username:password@localhost/generator_db')
-    myapp.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY', 'mysupersecretjwtkey')
+
+    myapp.config.from_object('app.config.Config')
 
     db.init_app(myapp)
+    migrate.init_app(myapp, db)
+    jwt.init_app(myapp)
 
-    JWTManager(myapp)
-    myapp.register_blueprint(routes, url_prefix='/')
-  # Run migrations or create tables if needed
-    with myapp.app_context():
-        db.create_all()
+    from app.routes import routes_bp
+    myapp.register_blueprint(routes_bp)
+
     return myapp
-
-
-myapp = create_app()

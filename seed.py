@@ -1,38 +1,22 @@
 from app import create_app, db
-from backend.app.models import User, Employee, ContractType
+from app.models import ContractType
 
 app = create_app()
 
 with app.app_context():
-    db.create_all()
+    # Add default contract types
+    if not ContractType.query.all():
+        fulltime = ContractType(name='Full-Time Employment', template='Full-Time Template Content')
+        parttime = ContractType(name='Part-Time Employment', template='Part-Time Template Content')
+        freelance = ContractType(name='Freelance Contract', template='Freelance Template Content')
+        db.session.add(fulltime)
+        db.session.add(parttime)
+        db.session.add(freelance)
+        db.session.commit()
 
-    # Create Users
-    users = [
-        {'username': 'user1', 'password': 'password1'},
-        {'username': 'user2', 'password': 'password2'},
-        {'username': 'user3', 'password': 'password3'},
-        {'username': 'user4', 'password': 'password4'},
-        {'username': 'user5', 'password': 'password5'},
-    ]
 
-    for user_data in users:
-        user = User(username=user_data['username'])
-        user.set_password(user_data['password'])
-        db.session.add(user)
-
-    # Create Employees
-    employees = [
-        {'name': 'John Doe', 'position': 'Software Engineer', 'department': 'Engineering'},
-        {'name': 'Jane Smith', 'position': 'Product Manager', 'department': 'Product'},
-        {'name': 'Alice Johnson', 'position': 'Designer', 'department': 'Design'},
-    ]
-
-    for emp_data in employees:
-        employee = Employee(**emp_data)
-        db.session.add(employee)
-
-    # Create Contract Types
-    contract_types = [
+    # Create Contract Templates
+   template = [
         {
             'name': 'Full-Time',
             'template': """

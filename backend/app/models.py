@@ -1,5 +1,6 @@
-from . import db
-from datetime import datetime
+from app import db
+from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import validates
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -8,7 +9,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(80), unique=True)
     password = db.Column(db.String(100))
     is_active = db.Column(db.Boolean(), default=True)
-    contracts = db.relationship("Contract", back_populates="user")
+    contracts = db.relationship('FinalContract', backref='user', lazy=True)
 
 
 class Employee(db.Model):
@@ -29,10 +30,13 @@ class FinalContract(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     employee_id = db.Column(db.Integer, db.ForeignKey('employee.id'), nullable=False)
-    contract_type_id = db.Column(db.Integer, db.ForeignKey('contract_type.id'), nullable=False)
-    contract_data = db.Column(db.Text, nullable=False)
+    content = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     employee_id = db.Column(db.Integer, db.ForeignKey('employee.id'))
-    employee = db.relationship("Employee", back_populates="contract")
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    user = db.relationship("User", back_populates="contracts")
+    contract_type_id = db.Column(db.Integer, db.ForeignKey('contract_type.id')
+    user = db.relationship('User', backref=db.backref('final_contracts', lazy=True))
+    employee = db.relationship('Employee', backref=db.backref('final_contracts', lazy=True))
+    contract_type = db.relationship('ContractType', backref=db.backref('final_contracts', lazy=True))
+
+

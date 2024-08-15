@@ -1,25 +1,14 @@
 {% extends "home.html" %}
 
 {% block content %}
-<main class="dashboard-container">
-    <div class="dashboard-content">
-        <h1>Employment Contract Generator</h1>
-        <h2>Welcome to the Dashboard</h2>
-        <form action="{{ url_for('backend.routes.dashboard') }}" method="post">
-            <h3>What type of employment contract would you like to generate?</h3>
-            <div class="dropdown">
-                <button class="dropdown-button">Select Contract Type</button>
-                <div class="dropdown-content">
-                    <a href="#">Full-Time</a>
-                    <a href="#">Part-Time</a>
-                    <a href="#">Freelance</a>
-                </div>
-            </div>
-        </form>
-    </div>
-    <!-- Move logout button here -->
-    <div class="logout-container">
-        <a href="{{ url_for('routes.logout') }}" class="logout-button">Logout</a>
-    </div>
-</main>
+<div class="dashboard-container">
+    <h2>Dashboard</h2>
+    <p>Select a contract type to generate:</p>
+    <ul>
+        <li><a href="/create_contract?type=fulltime" class="contract-link">Full-Time Employment</a></li>
+        <li><a href="/create_contract?type=parttime" class="contract-link">Part-Time Employment</a></li>
+        <li><a href="/create_contract?type=freelance" class="contract-link">Freelance Contract</a></li>
+    </ul>
+</div>
 {% endblock %}
+
